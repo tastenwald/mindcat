@@ -15,6 +15,7 @@ class MindCat{
         add_action('wp_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_enqueue_scripts', array(&$this, 'load_media_scripts'));
+        add_action('wp_enqueue_scripts', array(&$this, 'enqueue_frontend_styles'));
 
         // Settings
         add_action('admin_menu', array(&$this,'settings_page'));
@@ -94,6 +95,14 @@ class MindCat{
         echo '<style id="mindcat-css-rules">'.$rules.'</style>'."\n";
     }
 
+    /**
+     * Enqueue frontend styles
+     * 
+     * @return void
+     */
+    public function enqueue_frontend_styles(){
+        wp_enqueue_style( 'dashicons' );
+    }
 
     /**
      * Load wp.media scripts in admin

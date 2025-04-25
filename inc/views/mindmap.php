@@ -96,7 +96,8 @@ function mindmap($args = '')
     }
 
     if (false == $hide_empty || $count > 0) {
-        $ret = '<div class="mindcat" data-size="' . esc_attr($size) . '"><ul><li class="mindcat_root">';
+        $ret = '<div class="mindcat-wrapper">';
+        $ret .= '<div class="mindcat" data-size="' . esc_attr($size) . '"><ul><li class="mindcat_root">';
         $ret .= '<a href="' . esc_attr($link) . '" style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">' . $root;
         if ($cat != 0 && 1 == $count) {
             $ret .= '<span class="mindcat_count">' . $posts_count . '</span>';
@@ -104,6 +105,11 @@ function mindmap($args = '')
         $ret .= '</a>';
         $ret .= subcat($cat, 1, $args);
         $ret .= '</li></ul></div>';
+        $ret .= '<div class="mindcat-options">';
+        $ret .= '<span class="dashicons dashicons-fullscreen-alt" title="' . esc_html__( 'Switch to full-screen', 'mindcat' ) . '"></span>';
+        $ret .= '<span class="dashicons dashicons-fullscreen-exit-alt" title="' . esc_html__( 'Exit full-screen', 'mindcat' ) . '"></span>';
+        $ret .= '</div>';
+        $ret .= '</div>';
     }
     return $ret;
 }
