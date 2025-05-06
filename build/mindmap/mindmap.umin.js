@@ -1,0 +1,63 @@
+(() => {
+    "use strict";
+    var t = 0,
+        e = [];
+    jQuery(document).ready(function () {
+        jQuery(".mindcat").each(function () {
+            var i = jQuery(this),
+                n = i.data("size");
+            isNaN(n) && (n = 50), i.height(12 * n);
+            var a = i.offset();
+            (a.height = i.height()),
+                (a.width = i.width()),
+                (function i(n, a, r, c) {
+                    (e[n.data("id")] = n.children("ul").children("li").length),
+                        0 != e[n.data("id")] &&
+                            n
+                                .children("ul")
+                                .children("li")
+                                .each(function () {
+                                    var s = e[n.data("id")],
+                                        d = jQuery(this).parent().parent(),
+                                        h = d.offset();
+                                    (h.height = d.height()), (h.width = d.width()), (h.centerx = h.left + h.width / 2), (h.centery = h.top + h.height / 2);
+                                    var o = jQuery(this).children("a").outerWidth(),
+                                        l = (jQuery(this).children("a").outerHeight(), 0);
+                                    jQuery(this)
+                                        .children("a")
+                                        .css({ left: "-" + o / 2 + "px" }),
+                                        0 == t
+                                            ? (jQuery(this).offset({ top: h.centery, left: h.centerx }), (t = 1))
+                                            : ((l = (360 / s) * r + c),
+                                              console.log(l),
+                                              jQuery(this)
+                                                  .height(a)
+                                                  .css({ "-transform": "rotate(" + l + "deg)", "-moz-transform": "rotate(" + l + "deg)", "-webkit-transform": "rotate(" + l + "deg)" }),
+                                              jQuery(this)
+                                                  .children("a,ul")
+                                                  .css({ transform: "rotate(-" + l + "deg)", "-moz-transform": "rotate(-" + l + "deg)", "-webkit-transform": "rotate(-" + l + "deg)" })),
+                                        r++,
+                                        i(jQuery(this), a / 2, 0, 8 * s + c);
+                                });
+                })(jQuery(this), 10 * n, 0, 90 * Math.random());
+        }),
+        jQuery(".mindcat-color-field").length > 0 && jQuery(".mindcat-color-field").wpColorPicker(),
+        jQuery(".mindcat-options .dashicons-fullscreen-alt").each(function () {
+            jQuery(this).click(function () {
+                var t = jQuery(this),
+                    e = jQuery(t).parents(".mindcat-wrapper").clone(!0);
+                jQuery(e).addClass("mindcat-wrapper-fullscreen"),
+                    jQuery(e).find(".mindcat-options").addClass("mindcat-options-fullscreen"),
+                    jQuery(e).find(".dashicons-fullscreen-alt").hide(),
+                    jQuery(e).find(".dashicons-fullscreen-exit-alt").css("display", "inline-block"),
+                    jQuery(e).prependTo("body");
+            });
+        }),
+        jQuery(".mindcat-options .dashicons-fullscreen-exit-alt").each(function () {
+            jQuery(this).click(function () {
+                var t = jQuery(this);
+                jQuery(t).parents(".mindcat-wrapper").detach();
+            });
+        });
+    });
+})();
