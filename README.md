@@ -14,3 +14,4 @@ If you still want to use it, you have to upload it manually. After downloading i
 ## New features
 
 - Full-screen: Each mind map can be viewed in full-screen mode.
+- Edit knots: Each knot can be renamed, expanded, or removed.

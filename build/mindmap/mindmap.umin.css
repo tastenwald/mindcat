@@ -26,6 +26,39 @@
     position: relative;
     width: 100%;
 }
+.mindcat input {
+    width: 300px;
+    margin-right: 3px;
+    padding-top: 5px;
+}
+.mindcat .dashicons {
+    cursor: pointer;
+}
+.mindcat a .dashicons-yes-alt {
+    display: none;
+}
+.mindcat a .mindcat-cancel {
+    display: none;
+}
+.mindcat-layer {
+    z-index: 9;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    opacity: 0.9;
+}
+.mindcat-layer div {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+}
+.mindcat-layer p {
+    font-size: 1em;
+}
 .mindcat ul {
     bottom: 0;
     display: block;

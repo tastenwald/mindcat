@@ -15,6 +15,7 @@ class MindCat{
         add_action('wp_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_enqueue_scripts', array(&$this, 'load_media_scripts'));
+        add_action('wp_enqueue_scripts', array(&$this, 'localize_scripts'), 99);
         add_action('wp_enqueue_scripts', array(&$this, 'enqueue_frontend_styles'));
 
         // Settings
@@ -93,6 +94,22 @@ class MindCat{
         }
         echo '<style id="mindcat-css-vars">:root{'.$vars.'}</style>'."\n";
         echo '<style id="mindcat-css-rules">'.$rules.'</style>'."\n";
+    }
+
+    /**
+     * Localize scripts
+     * 
+     * @return void
+     */
+    public function localize_scripts(){
+        $translation_array = array(
+            'save' => __( 'Save changes', 'mindcat' ),
+            'cancel' => __( 'Cancel changes', 'mindcat' ),
+            'rename' => __( 'Rename this term', 'mindcat' ),
+            'add' => __( 'Add a sub-term', 'mindcat' ),
+            'remove' => __( 'Remove this term', 'mindcat' ),
+        );
+        wp_localize_script( 'mindcat-mindmap-front', 'Mindmap', $translation_array );
     }
 
     /**
