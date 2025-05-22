@@ -15,6 +15,10 @@ class MindCat{
         add_action('wp_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_print_styles', array(&$this,'enqueue_styles'));
         add_action('admin_enqueue_scripts', array(&$this, 'load_media_scripts'));
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true )
+            add_action('wp_enqueue_scripts', array(&$this, 'enqueue_frontend_scripts'));
+
         add_action('wp_enqueue_scripts', array(&$this, 'localize_scripts'), 99);
         add_action('wp_enqueue_scripts', array(&$this, 'enqueue_frontend_styles'));
 
@@ -28,6 +32,9 @@ class MindCat{
         add_shortcode('mindcat', array(&$this,'block_mindmap'));
 
         add_filter('pre_render_block', array(&$this, 'pre_render_block'), 10, 3);
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true )
+            add_filter('register_block_type_args', array(&$this, 'register_block_type_args'), 10, 2);
     }
     /**
      * PHP4 Constructor
@@ -97,11 +104,28 @@ class MindCat{
     }
 
     /**
+     * For developing and forcing WordPress to load changed JavaScript
+     * 
+     * @return void
+     */
+    public function enqueue_frontend_scripts() {
+        wp_deregister_script( 'mindcat-mindmap-front' );
+        wp_register_script(
+            'mindcat-mindmap-front',
+            plugins_url( 'mindcat/build/mindmap/mindmap.umin.js' ),
+            array( 'jquery' ),
+            false,
+            true
+        );
+        wp_enqueue_script( 'mindcat-mindmap-front-umin' );
+    }
+
+    /**
      * Localize scripts
      * 
      * @return void
      */
-    public function localize_scripts(){
+    public function localize_scripts() {
         $translation_array = array(
             'save' => __( 'Save changes', 'mindcat' ),
             'cancel' => __( 'Cancel changes', 'mindcat' ),
@@ -117,8 +141,18 @@ class MindCat{
      * 
      * @return void
      */
-    public function enqueue_frontend_styles(){
+    public function enqueue_frontend_styles() {
         wp_enqueue_style( 'dashicons' );
+
+        // For developing and forcing WordPress to load changed CSS
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true )
+            wp_register_style(
+                'mindcat-mindmap-umin-style',
+                plugins_url( 'mindcat/build/mindmap/mindmap.umin.css' ),
+                array(),
+                rand( 1, 99 )
+            );
+
     }
 
     /**
@@ -333,6 +367,34 @@ class MindCat{
         }
 
         return $pre_render; 
+    }
+
+    /**
+     * For developing and forcing WordPress to load changed CSS
+     * 
+     * @param array $args
+     * @param string $block_type
+     * 
+     * @return string
+     */
+    function register_block_type_args( $args, $block_type )
+    {
+        // List of block types to modify
+        $block_types_to_modify = [
+            'mindcat/mindmap',
+        ];
+    
+        // Check if the current block type is in the list
+        if ( in_array( $block_type, $block_types_to_modify, true ) ) {
+            // Edit arguments
+            $args[ 'style' ] = [
+                'mindcat-mindmap-umin-style',
+                '',
+                rand( 1, 99 )
+            ];
+        }
+    
+        return $args;
     }
 
     /**
