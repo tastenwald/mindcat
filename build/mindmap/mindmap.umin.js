@@ -148,7 +148,7 @@
                                         h = d.offset();
                                     (h.height = d.height()), (h.width = d.width()), (h.centerx = h.left + h.width / 2), (h.centery = h.top + h.height / 2);
                                     var o = jQuery(this).children("a").outerWidth(),
-                                        l = (jQuery(this).children("a").outerHeight(), 0);
+                                        l = jQuery(this).children("a").outerHeight();
                                     jQuery(this)
                                         .children("a")
                                         .css({ left: "-" + o / 2 + "px" }),
