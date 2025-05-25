@@ -131,7 +131,8 @@
         // Initiate mindmaps
         jQuery(".mindcat").each(function () {
             var i = jQuery(this),
-                n = i.data("size");
+                n = i.data("size"),
+                t = 0;
             isNaN(n) && (n = 50), i.height(12 * n);
             var a = i.offset();
             (a.height = i.height()),
