@@ -42,12 +42,13 @@ function subcat($cat, $level, $args = array())
             $ret .= '<span class="dashicons dashicons-welcome-write-blog" title="' . esc_html__( 'Rename this term', 'mindcat' ) . '"></span>';
             $ret .= '<span class="dashicons dashicons-plus-alt" title="' . esc_html__( 'Add a sub-term', 'mindcat' ) . '"></span>';
             $children = get_term_children( $term->term_id, 'category' );
-            if ( is_array( $children )
+            if ( (is_array( $children )
                 && empty( $children )
-                && (( ! empty( $args[ 'max_level' ] )
+                && ( ! empty( $args[ 'max_level' ] )
                 && $args[ 'max_level' ] > 0
-                && $args[ 'max_level' ] > $level )
-                || $args[ 'max_level' ] == $level )
+                && $args[ 'max_level' ] > $level ))
+                || $args[ 'max_level' ] == $level
+                || $args[ 'max_level' ] === 0
             ) {
                 $ret .= '<span class="mindcat-remove dashicons dashicons-dismiss" title="' . esc_html__( 'Remove this term', 'mindcat' ) . '"></span>';
             }
