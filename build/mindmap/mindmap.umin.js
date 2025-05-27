@@ -70,10 +70,10 @@
                         append;
                     if (!siblings.length)  {
                         var style = jQuery(Add_Subterm).parent().attr("style").split(';');
-                        append = jQuery(Add_Subterm).parent().parent().append('<ul style="' + style[3].trim() + '"><li class="mindcat_child" style="height:' + height + 'px"><a>' + subterm + '</a></li></ul>');
+                        append = jQuery(Add_Subterm).parent().parent().append('<ul style="' + style[3].trim() + '"><li class="mindcat_child" style="height:' + height + 'px"><div>' + subterm + '</div></li></ul>');
                         siblings = jQuery(Add_Subterm).parent().siblings("ul");
                     } else {
-                        append = jQuery(siblings).append('<li class="mindcat_child" style="height:' + height + 'px"><a>' + subterm + '</a></li>');
+                        append = jQuery(siblings).append('<li class="mindcat_child" style="height:' + height + 'px"><div>' + subterm + '</div></li>');
                     }
                     var count = jQuery(siblings).children("li").length,
                         random = 90 * Math.random();
@@ -81,14 +81,14 @@
                         var d = jQuery(this).parent().parent(),
                             h = d.offset();
                         (h.height = d.height()), (h.width = d.width()), (h.centerx = h.left + h.width / 2), (h.centery = h.top + h.height / 2);
-                        var o = jQuery(this).children("a").outerWidth(),
+                        var o = jQuery(this).children("div").outerWidth(),
                             l = (360 / count) * index + random;
-                        jQuery(this).children("a").css({ left: "-" + o / 2 + "px" }),
+                        jQuery(this).children("div").css({ left: "-" + o / 2 + "px" }),
                             console.log(l),
                             jQuery(this)
                                 .css({ "-transform": "rotate(" + l + "deg)", "-moz-transform": "rotate(" + l + "deg)", "-webkit-transform": "rotate(" + l + "deg)" }),
                             jQuery(this)
-                                .children("a")
+                                .children("div")
                                 .css({ transform: "rotate(-" + l + "deg)", "-moz-transform": "rotate(-" + l + "deg)", "-webkit-transform": "rotate(-" + l + "deg)" });
                     });
 
@@ -148,20 +148,20 @@
                                         d = jQuery(this).parent().parent(),
                                         h = d.offset();
                                     (h.height = d.height()), (h.width = d.width()), (h.centerx = h.left + h.width / 2), (h.centery = h.top + h.height / 2);
-                                    var o = jQuery(this).children("a").outerWidth(),
-                                        l = jQuery(this).children("a").outerHeight();
+                                    var o = jQuery(this).children("div").outerWidth(),
+                                        l = jQuery(this).children("div").outerHeight();
                                     jQuery(this)
-                                        .children("a")
+                                        .children("div")
                                         .css({ left: "-" + o / 2 + "px" }),
                                         0 == t
-                                            ? (jQuery(this).offset({ top: h.centery, left: h.centerx }), (t = 1))
+                                            ? (jQuery(this).offset({ top: h.centery , left: h.centerx }), (t = 1))
                                             : ((l = (360 / s) * r + c),
                                               console.log(l),
                                               jQuery(this)
                                                   .height(a)
                                                   .css({ "-transform": "rotate(" + l + "deg)", "-moz-transform": "rotate(" + l + "deg)", "-webkit-transform": "rotate(" + l + "deg)" }),
                                               jQuery(this)
-                                                  .children("a,ul")
+                                                  .children("div,ul")
                                                   .css({ transform: "rotate(-" + l + "deg)", "-moz-transform": "rotate(-" + l + "deg)", "-webkit-transform": "rotate(-" + l + "deg)" })),
                                         r++,
                                         i(jQuery(this), a / 2, 0, 8 * s + c);
@@ -171,13 +171,13 @@
         jQuery(".mindcat-color-field").length > 0 && jQuery(".mindcat-color-field").wpColorPicker(),
 
         // Mindmap options
-        jQuery(".mindcat a .dashicons-welcome-write-blog").each(function(){mindcat_rename_term(this)}),
-        jQuery(".mindcat a .dashicons-yes-alt").each(function(){mindcat_save_changes(this)}),
-        jQuery(".mindcat a .mindcat-cancel.dashicons-dismiss").each(function(){mindcat_cancel_changes(this)}),
-        jQuery(".mindcat a .dashicons-plus-alt").each(function(){mindcat_add_subterm(this)}),
+        jQuery(".mindcat li > div .dashicons-welcome-write-blog").each(function(){mindcat_rename_term(this)}),
+        jQuery(".mindcat li > div .dashicons-yes-alt").each(function(){mindcat_save_changes(this)}),
+        jQuery(".mindcat li > div .mindcat-cancel.dashicons-dismiss").each(function(){mindcat_cancel_changes(this)}),
+        jQuery(".mindcat li > div .dashicons-plus-alt").each(function(){mindcat_add_subterm(this)}),
         jQuery(".mindcat-layer .dashicons-yes-alt").each(function(){mindcat_save_subterm(this)}),
         jQuery(".mindcat-layer .dashicons-dismiss").each(function(){mindcat_cancel_subterm(this)}),
-        jQuery(".mindcat a .mindcat-remove.dashicons-dismiss").each(function(){mindcat_remove_term(this)}),
+        jQuery(".mindcat li > div .mindcat-remove.dashicons-dismiss").each(function(){mindcat_remove_term(this)}),
 
         // General options
         jQuery(".mindcat-options .dashicons-fullscreen-alt").each(function () {

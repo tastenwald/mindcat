@@ -34,10 +34,10 @@
 .mindcat .dashicons {
     cursor: pointer;
 }
-.mindcat a .dashicons-yes-alt {
+.mindcat li div .dashicons-yes-alt {
     display: none;
 }
-.mindcat a .mindcat-cancel {
+.mindcat li div .mindcat-cancel {
     display: none;
 }
 .mindcat-layer {
@@ -86,7 +86,7 @@
     width: 1px;
     z-index: 1;
 }
-.mindcat li a {
+.mindcat li > div {
     background: #ccc;
     border-radius: 3px;
     bottom: 0;
@@ -102,7 +102,7 @@
     white-space: nowrap;
     z-index: 10;
 }
-.mindcat li a:hover {
+.mindcat li > div:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 .mindcat_root {

@@ -27,9 +27,9 @@ function subcat($cat, $level, $args = array())
             $link = get_term_link($term, 'category');
             $bgcolor = isset($MindCatColors[$term->term_id]['bg']) ? $MindCatColors[$term->term_id]['bg'] : '#CCCCCC';
             $color = isset($MindCatColors[$term->term_id]['txt']) ? $MindCatColors[$term->term_id]['txt'] : '#333333';
-            // Remove link to increase usability
+            // Replace <a> tag to improve HTML structure
             /* $ret .= '<li data-id="' . esc_attr($term->term_id) . '" class="mindcat_child"><a href="' . esc_attr($link) . '" style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">'; */
-            $ret .= '<li data-id="' . esc_attr($term->term_id) . '" class="mindcat_child"><a style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">';
+            $ret .= '<li data-id="' . esc_attr($term->term_id) . '" class="mindcat_child"><div style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">';
             $ret .= '<span>' . $term->name . '</span>';
             $input = $term->name;
             // Remove count to avoid additional css
@@ -52,7 +52,8 @@ function subcat($cat, $level, $args = array())
             ) {
                 $ret .= '<span class="mindcat-remove dashicons dashicons-dismiss" title="' . esc_html__( 'Remove this term', 'mindcat' ) . '"></span>';
             }
-            $ret .= '</a>';
+            // $ret .= '</a>';
+            $ret .= '</div>';
             if (!empty($args['max_level']) && $args['max_level'] > 0 && $args['max_level'] > $level) {
                 $ret .= subcat($term->term_id, $level + 1, $args);
             }
@@ -119,9 +120,9 @@ function mindmap($args = '')
     if (false == $hide_empty || $count > 0) {
         $ret = '<div class="mindcat-wrapper">';
         $ret .= '<div class="mindcat" data-size="' . esc_attr($size) . '"><ul class="mindcat-top"><li class="mindcat_root">';
-        // Remove link to increase usability
+        // Replace <a> tag to improve HTML structure
         /* $ret .= '<a href="' . esc_attr($link) . '" style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">'; */
-        $ret .= '<a style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">';
+        $ret .= '<div style="background:' . esc_attr($bgcolor) . ';color:' . esc_attr($color) . ';">';
         $ret .= '<span>' . $root . '</span>';
         // Remove count to avoid additional css
         /* if ($cat != 0 && 1 == $count) {
@@ -132,7 +133,8 @@ function mindmap($args = '')
         $ret .= '<span class="mindcat-cancel dashicons dashicons-dismiss" title="' . esc_html__( 'Cancel changes', 'mindcat' ) . '"></span>';
         $ret .= '<span class="dashicons dashicons-welcome-write-blog" title="' . esc_html__( 'Rename mind map root', 'mindcat' ) . '"></span>';
         $ret .= '<span class="dashicons dashicons-plus-alt" title="' . esc_html__( 'Add a sub-term', 'mindcat' ) . '"></span>';
-        $ret .= '</a>';
+        // $ret .= '</a>';
+        $ret .= '</div>';
         $ret .= subcat($cat, 1, $args);
         $ret .= '</li></ul>';
         $ret .= '<div class="mindcat-layer"><div>';
