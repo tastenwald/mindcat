@@ -117,7 +117,7 @@ class MindCat{
             false,
             true
         );
-        wp_enqueue_script( 'mindcat-mindmap-front-umin' );
+        wp_enqueue_script( 'mindcat-mindmap-front' );
     }
 
     /**
